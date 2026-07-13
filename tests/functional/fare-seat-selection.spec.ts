@@ -35,19 +35,11 @@ test.describe('Fare and seat selection', () => {
   test('unavailable (already-booked) seats cannot be selected', { tag: ['@functional', '@regression'] }, async ({
     page,
   }) => {
-    // Seats rendered without a "+fee" price tag and with the disabled/grey
-    // styling represent unavailable seats in the legend ("Unavailable").
-    const unavailableSeat = page.locator('button, td, div').filter({ hasText: /^[A-F]$/ }).and(
-      page.locator('[disabled], [aria-disabled="true"]')
-    );
-    // Not every layout guarantees a disabled attribute — this assertion is a
-    // starting point; tighten the selector once the app exposes a stable
-    // data-testid for seat state (see README > Known gaps).
-    test.skip(
-      (await unavailableSeat.count()) === 0,
-      'No seat exposed a disabled/aria-disabled attribute to assert against — revisit selector once app adds data-testid.'
-    );
-    await expect(unavailableSeat.first()).toBeDisabled();
+    // Each seat has a stable data-testid (seat-<id>, e.g. seat-1E) and is a
+    // real disabled <button> when unavailable — see DEF-0001 (closed).
+    const unavailableSeat = page.locator('[data-testid^="seat-"][disabled]').first();
+    await expect(unavailableSeat).toBeVisible();
+    await expect(unavailableSeat).toHaveAccessibleName(/unavailable/i);
   });
 
   test('extra-legroom seats show a price surcharge', { tag: ['@functional', '@regression'] }, async ({ page }) => {

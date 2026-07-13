@@ -106,12 +106,13 @@ one-off runs:
   forgot-password.spec.ts` has a `test.fixme` placeholder and a
   `pending-exploration` registry entry (`TC-AUTH-006`) rather than a real
   assertion.
-- **Seat-unavailability selector** (`TC-FARESEAT-002`) currently guards
-  itself with `test.skip` if it can't find a `disabled`/`aria-disabled`
-  attribute on unavailable seats — the app may only communicate this via
-  CSS class, which the initial exploration pass couldn't confirm reliably.
-  Filed as `DEF-0001` in `defects/defects.json` as an example of the
-  defect-log workflow.
+- ~~**Seat-unavailability selector**~~ Resolved: unavailable seats do carry
+  a real `disabled` attribute and a stable `data-testid="seat-<id>"`.
+  `TC-FARESEAT-002` now asserts on that directly; see `DEF-0001` (Closed)
+  in `defects/defects.json` for details — it turned out the app exposes
+  `data-testid`s fairly broadly (seat map, confirmation summary, signup),
+  which the original black-box pass didn't discover. Worth revisiting other
+  text/role-based locators in `src/pages/*.ts` with these in mind.
 - **CI app-startup step is a placeholder.** `.github/workflows/*.yml` have
   a `TODO` where the app-under-test needs to be started (or pointed at a
   staging URL) — see the comments in those files.

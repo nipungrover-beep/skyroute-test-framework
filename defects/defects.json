@@ -1,22 +1,22 @@
 [
   {
     "id": "DEF-0001",
-    "title": "EXAMPLE — delete or edit me: seat-map legend doesn't mark booked seats with a stable selector",
+    "title": "Seat-map legend doesn't mark booked seats with a stable selector",
     "severity": "Low",
-    "status": "Open",
+    "status": "Closed",
     "linked_test_case": "TC-FARESEAT-002",
     "linked_enhancement": null,
     "release_found": "local",
-    "release_fixed": null,
+    "release_fixed": "local",
     "steps_to_reproduce": [
       "Search DEL -> BOM, select any flight",
       "Inspect an unavailable (grey) seat in the seat map",
       "Note it has no disabled/aria-disabled attribute or data-testid distinguishing it from an available seat"
     ],
     "expected": "Unavailable seats are identifiable via a stable attribute (disabled, aria-disabled, or data-testid) so automated tests don't rely on color/position.",
-    "actual": "Unavailable seats appear to be styled only via CSS class, with no accessible/stable marker.",
+    "actual": "Did not reproduce: with the app actually running, unavailable seat buttons carry both a real `disabled` attribute and a stable `data-testid=\"seat-<id>\"`, plus an accessible name ending in \"unavailable\". This entry was filed from the initial exploration template without verifying against a live instance; TC-FARESEAT-002 has been hardened to assert on `[data-testid^=\"seat-\"][disabled]` directly.",
     "date_raised": "2026-07-13",
-    "date_resolved": null,
+    "date_resolved": "2026-07-13",
     "rca_ref": null
   }
 ]
