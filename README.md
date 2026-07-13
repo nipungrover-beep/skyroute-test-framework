@@ -48,7 +48,7 @@ tests/functional/     UI flows: search, results, fare/seat, confirm, login, sign
 tests/api/             Direct API tests for each endpoint
 test-management/       Test case registry + workflow for enhancements (see its README)
 defects/                Defect history + RCA (see its README)
-.github/workflows/     CI: smoke on every push, regression on schedule/release
+.github/workflows/     CI: smoke on every push/PR, regression on release tag or manual run
 ```
 
 ## Test case management, defects, and RCA
@@ -113,6 +113,11 @@ one-off runs:
   `data-testid`s fairly broadly (seat map, confirmation summary, signup),
   which the original black-box pass didn't discover. Worth revisiting other
   text/role-based locators in `src/pages/*.ts` with these in mind.
-- **CI app-startup step is a placeholder.** `.github/workflows/*.yml` have
-  a `TODO` where the app-under-test needs to be started (or pointed at a
-  staging URL) — see the comments in those files.
+- ~~**CI app-startup step is a placeholder.**~~ Resolved: `.github/workflows/smoke.yml`
+  (every push/PR) and `regression.yml` (on `release/<tag>` push, or manual
+  `workflow_dispatch` with a `release_tag` input) now exist. Since this repo
+  has no access to the app's source, CI can't start SkyRoute itself — both
+  workflows point Playwright at a `BASE_URL` repository variable, which
+  must be set to a reachable deployment (staging, preview environment,
+  etc.) under Settings > Secrets and variables > Actions > Variables before
+  either workflow will pass.

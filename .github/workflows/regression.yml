@@ -1,0 +1,54 @@
+name: Regression tests
+
+on:
+  push:
+    tags:
+      - 'release/*'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'RELEASE_TAG to label this run (e.g. 2026.07-R2). Defaults to the release/<tag> being pushed.'
+        required: false
+        default: ''
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    env:
+      # See smoke.yml: this repo doesn't contain the app's source, so CI
+      # needs BASE_URL pointed at a reachable deployment. Configure it in
+      # Settings > Secrets and variables > Actions > Variables > BASE_URL.
+      BASE_URL: ${{ vars.BASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps chromium
+
+      - name: Resolve RELEASE_TAG
+        run: |
+          if [ -n "${{ github.event.inputs.release_tag }}" ]; then
+            TAG="${{ github.event.inputs.release_tag }}"
+          elif [ "${GITHUB_REF#refs/tags/}" != "$GITHUB_REF" ]; then
+            TAG="${GITHUB_REF#refs/tags/release/}"
+          else
+            TAG="local"
+          fi
+          echo "RELEASE_TAG=$TAG" >> "$GITHUB_ENV"
+
+      - name: Run regression suite
+        run: npm run test:regression
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regression-report-${{ env.RELEASE_TAG }}
+          path: reports/${{ env.RELEASE_TAG }}/**
+          retention-days: 90

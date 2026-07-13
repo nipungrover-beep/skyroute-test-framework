@@ -1,0 +1,40 @@
+name: Smoke tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    env:
+      # This repo is a black-box test suite — it doesn't contain the
+      # SkyRoute app's source, so CI can't start it itself. Point BASE_URL
+      # at a reachable deployment (staging, preview environment, etc.) via
+      # Settings > Secrets and variables > Actions > Variables > BASE_URL.
+      BASE_URL: ${{ vars.BASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps chromium
+
+      - name: Validate test case registry
+        run: npm run validate:test-registry
+
+      - name: Run smoke suite
+        run: npm run test:smoke
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-report-${{ github.run_id }}
+          path: reports/local/**
+          retention-days: 14
