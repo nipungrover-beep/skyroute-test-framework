@@ -1,0 +1,33 @@
+# Test case registry: Results page (filters, sort, flight selection)
+- id: TC-RESULTS-001
+  title: Sorting by price (low to high) returns ascending prices
+  type: functional
+  priority: P2
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/results-filters-sort.spec.ts::Results filtering and sorting::sorting by price (low to high) returns ascending prices"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-RESULTS-002
+  title: Nonstop filter hides flights with stops
+  type: functional
+  priority: P2
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/results-filters-sort.spec.ts::Results filtering and sorting::nonstop filter hides flights with stops"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-RESULTS-003
+  title: Selecting a flight navigates to fare & seat selection
+  type: functional
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/results-filters-sort.spec.ts::Results filtering and sorting::selecting a flight navigates to fare & seat selection"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13

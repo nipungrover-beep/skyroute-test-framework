@@ -1,0 +1,66 @@
+# Test case registry: Login, Sign up, Forgot password
+- id: TC-AUTH-001
+  title: Invalid login credentials show an inline error
+  type: functional
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/login.spec.ts::Login::invalid credentials show an inline error and do not navigate"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-AUTH-002
+  title: Valid credentials log the user in
+  type: functional
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/login.spec.ts::Login::valid credentials log the user in"
+  status: blocked-needs-test-account
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-AUTH-003
+  title: Sign up with a valid, unique identity succeeds
+  type: functional
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/signup.spec.ts::Sign up::a unique, valid identity can sign up successfully"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-AUTH-004
+  title: Password policy is enforced (length, special characters, confirm match)
+  type: functional
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/signup.spec.ts::Sign up::password shorter than 10 characters is rejected"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-AUTH-005
+  title: Duplicate email is rejected on signup
+  type: functional
+  priority: P2
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/signup.spec.ts::Sign up::duplicate email is rejected on second signup"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-AUTH-006
+  title: Forgot password reset flow
+  type: functional
+  priority: P2
+  linked_enhancement: null
+  automated: false
+  test_ref: "tests/functional/forgot-password.spec.ts::Forgot password::submitting a registered email sends a reset link"
+  status: pending-exploration
+  created: 2026-07-13
+  updated: 2026-07-13

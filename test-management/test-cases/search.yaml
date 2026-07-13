@@ -1,0 +1,46 @@
+# Test case registry: Search page
+# See test-management/README.md for the workflow to add/update entries when
+# an enhancement ships.
+- id: TC-SEARCH-001
+  title: Searching a valid route returns results
+  type: functional
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/search.spec.ts::Flight search::searching a valid route returns results"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-SEARCH-002
+  title: Origin/destination autocomplete suggests matching airports
+  type: functional
+  priority: P2
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/search.spec.ts::Flight search::origin/destination autocomplete suggests matching airports"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-SEARCH-003
+  title: Swap button exchanges origin and destination
+  type: functional
+  priority: P3
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/search.spec.ts::Flight search::swap button exchanges origin and destination"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-SEARCH-004
+  title: Searching without a destination is blocked by validation
+  type: functional
+  priority: P2
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/search.spec.ts::Flight search::searching without selecting a destination shows validation, does not navigate"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13

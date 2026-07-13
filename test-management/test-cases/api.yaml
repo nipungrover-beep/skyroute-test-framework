@@ -1,0 +1,55 @@
+# Test case registry: API layer (mirrors tests/api/*.spec.ts)
+- id: TC-API-001
+  title: GET /api/airports returns matches for a valid query
+  type: api
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/api/airports.spec.ts::GET /api/airports::returns matching airports for a valid partial query"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-API-002
+  title: GET /api/flights returns flights for a valid route/date
+  type: api
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/api/flights.spec.ts::GET /api/flights::returns flights for a valid route/date"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-API-003
+  title: GET /api/flights/{id}/fares and /seatmap return valid data for a real flight
+  type: api
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/api/fares-seatmap.spec.ts::GET /api/flights/{id}/fares::returns fare tiers for a valid flight"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-API-004
+  title: GET /api/flights/{id}/confirm returns a booking reference for a valid selection
+  type: api
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/api/confirm.spec.ts::GET /api/flights/{id}/confirm::valid fare + seat combination returns a booking reference"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-API-005
+  title: POST /api/auth/login returns 401 for invalid credentials
+  type: api
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/api/auth.spec.ts::POST /api/auth/login::invalid credentials return 401"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13

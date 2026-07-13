@@ -1,0 +1,25 @@
+{
+  "name": "skyroute-test-framework",
+  "version": "1.0.0",
+  "description": "Test execution framework for SkyRoute (functional, API, regression, smoke)",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:functional": "playwright test tests/functional",
+    "test:api": "playwright test tests/api",
+    "test:regression": "playwright test --grep @regression",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen $BASE_URL",
+    "validate:test-registry": "node test-management/scripts/validate-registry.js",
+    "defect:new": "node defects/scripts/new-defect.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^20.14.0",
+    "dotenv": "^16.4.5",
+    "js-yaml": "^4.1.0",
+    "typescript": "^5.5.0"
+  }
+}

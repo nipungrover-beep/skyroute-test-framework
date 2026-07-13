@@ -1,0 +1,44 @@
+# Test case registry: Fare & seat selection, confirm summary
+- id: TC-FARESEAT-001
+  title: Choosing fare + seat and continuing reaches the confirm summary with correct totals
+  type: functional
+  priority: P1
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/fare-seat-selection.spec.ts::Fare and seat selection::choosing fare + seat and continuing reaches the confirm summary with correct totals"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-FARESEAT-002
+  title: Unavailable seats cannot be selected
+  type: functional
+  priority: P2
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/fare-seat-selection.spec.ts::Fare and seat selection::unavailable (already-booked) seats cannot be selected"
+  status: needs-selector-hardening
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-FARESEAT-003
+  title: Extra-legroom seats show a price surcharge
+  type: functional
+  priority: P3
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/fare-seat-selection.spec.ts::Fare and seat selection::extra-legroom seats show a price surcharge"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
+
+- id: TC-CONFIRM-001
+  title: Reference code is unique per fare/seat combination
+  type: functional
+  priority: P2
+  linked_enhancement: null
+  automated: true
+  test_ref: "tests/functional/confirm.spec.ts::Selection summary::reference code is unique per fare/seat combination"
+  status: active
+  created: 2026-07-13
+  updated: 2026-07-13
