@@ -3,6 +3,6 @@ dist/
 playwright-report/
 test-results/
 reports/**/*.zip
-reports/local/
+reports/**/html/
 .env
 *.log
