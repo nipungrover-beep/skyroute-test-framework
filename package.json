@@ -13,7 +13,8 @@
     "report": "playwright show-report",
     "codegen": "playwright codegen $BASE_URL",
     "validate:test-registry": "node test-management/scripts/validate-registry.js",
-    "defect:new": "node defects/scripts/new-defect.js"
+    "defect:new": "node defects/scripts/new-defect.js",
+    "jira:issue": "node scripts/fetch-jira-issue.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",
