@@ -120,4 +120,8 @@ one-off runs:
   workflows point Playwright at a `BASE_URL` repository variable, which
   must be set to a reachable deployment (staging, preview environment,
   etc.) under Settings > Secrets and variables > Actions > Variables before
-  either workflow will pass.
+  either workflow will pass. Both workflows also email a pass/fail summary
+  via Gmail SMTP — set `MAIL_USERNAME` (a Gmail address) and `MAIL_PASSWORD`
+  (an [App Password](https://myaccount.google.com/apppasswords), not the
+  account password) as repo Secrets, and optionally `NOTIFY_EMAIL` as a
+  Variable to override the default recipient (nipun.grover@gmail.com).

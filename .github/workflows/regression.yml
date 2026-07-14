@@ -43,7 +43,49 @@ jobs:
           echo "RELEASE_TAG=$TAG" >> "$GITHUB_ENV"
 
       - name: Run regression suite
+        id: tests
         run: npm run test:regression
+        continue-on-error: true
+
+      - name: Extract result summary
+        id: summary
+        if: always()
+        run: |
+          node -e "
+            const fs = require('fs');
+            let stats = { expected: 0, unexpected: 0, skipped: 0 };
+            try { stats = JSON.parse(fs.readFileSync('reports/${{ env.RELEASE_TAG }}/results.json', 'utf8')).stats; } catch (e) {}
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, [
+              'passed=' + stats.expected,
+              'failed=' + stats.unexpected,
+              'skipped=' + stats.skipped,
+            ].join('\n') + '\n');
+          "
+
+      - name: Email results
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: SkyRoute CI <${{ secrets.MAIL_USERNAME }}>
+          to: ${{ vars.NOTIFY_EMAIL || 'nipun.grover@gmail.com' }}
+          subject: "SkyRoute regression tests (${{ env.RELEASE_TAG }}): ${{ steps.tests.outcome }} (${{ steps.summary.outputs.passed }} passed, ${{ steps.summary.outputs.failed }} failed, ${{ steps.summary.outputs.skipped }} skipped)"
+          body: |
+            Regression suite result: ${{ steps.tests.outcome }}
+            Release tag: ${{ env.RELEASE_TAG }}
+
+            Passed:  ${{ steps.summary.outputs.passed }}
+            Failed:  ${{ steps.summary.outputs.failed }}
+            Skipped: ${{ steps.summary.outputs.skipped }}
+
+            Full run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Fail job if tests failed
+        if: steps.tests.outcome == 'failure'
+        run: exit 1
 
       - name: Upload report
         if: always()
