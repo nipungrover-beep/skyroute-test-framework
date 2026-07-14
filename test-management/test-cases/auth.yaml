@@ -17,9 +17,9 @@
   linked_enhancement: null
   automated: true
   test_ref: "tests/functional/login.spec.ts::Login::valid credentials log the user in"
-  status: blocked-needs-test-account
+  status: active
   created: 2026-07-13
-  updated: 2026-07-13
+  updated: 2026-07-14
 
 - id: TC-AUTH-003
   title: Sign up with a valid, unique identity succeeds
@@ -55,12 +55,34 @@
   updated: 2026-07-13
 
 - id: TC-AUTH-006
-  title: Forgot password reset flow
+  title: Forgot password -> reset password -> log in with new password (full flow)
   type: functional
   priority: P2
-  linked_enhancement: null
-  automated: false
-  test_ref: "tests/functional/forgot-password.spec.ts::Forgot password::submitting a registered email sends a reset link"
-  status: pending-exploration
+  linked_enhancement: SCRUM-1
+  automated: true
+  test_ref: "tests/functional/forgot-password.spec.ts::Forgot password::submitting a registered email lets you set a new password and log in with it"
+  status: active
   created: 2026-07-13
-  updated: 2026-07-13
+  updated: 2026-07-14
+
+- id: TC-AUTH-007
+  title: Forgot password - validation (empty login ID, unregistered login ID)
+  type: functional
+  priority: P3
+  linked_enhancement: SCRUM-1
+  automated: true
+  test_ref: "tests/functional/forgot-password.spec.ts::Forgot password::submitting without a login ID shows a validation error"
+  status: active
+  created: 2026-07-14
+  updated: 2026-07-14
+
+- id: TC-AUTH-008
+  title: Reset password - validation (confirm-password mismatch, weak password)
+  type: functional
+  priority: P3
+  linked_enhancement: SCRUM-1
+  automated: true
+  test_ref: "tests/functional/forgot-password.spec.ts::Forgot password::mismatched confirm-password on reset is rejected"
+  status: active
+  created: 2026-07-14
+  updated: 2026-07-14

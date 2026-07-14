@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../src/pages/LoginPage';
+import { SignupPage } from '../../src/pages/SignupPage';
+import { uniqueSignupIdentity } from '../../src/utils/testData';
 
 test.describe('Login', () => {
   test('invalid credentials show an inline error and do not navigate', {
@@ -39,16 +41,20 @@ test.describe('Login', () => {
     'valid credentials log the user in',
     { tag: ['@smoke', '@regression'] },
     async ({ page }) => {
-      test.skip(
-        !process.env.TEST_USER_EMAIL || !process.env.TEST_USER_PASSWORD,
-        'Set TEST_USER_EMAIL / TEST_USER_PASSWORD in .env to enable this test — see README > Test accounts.'
-      );
+      // Self-provisions an identity via signup rather than relying on a
+      // pre-seeded TEST_USER_EMAIL/PASSWORD, since no seeded account was
+      // available during exploration (see README > Known gaps).
+      const identity = uniqueSignupIdentity();
+      const signup = new SignupPage(page);
+      await signup.goto();
+      await signup.signUp(identity);
+      await expect(page.getByTestId('signup-success')).toBeVisible();
+
       const login = new LoginPage(page);
       await login.goto();
-      await login.login(process.env.TEST_USER_EMAIL!, process.env.TEST_USER_PASSWORD!);
+      await login.login(identity.email, identity.password);
 
-      await expect(page).not.toHaveURL(/\/login/);
-      await expect(page.getByRole('link', { name: 'Log in' })).not.toBeVisible();
+      await expect(page.getByTestId('login-success')).toContainText(identity.email);
     }
   );
 });
