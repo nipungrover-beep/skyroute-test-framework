@@ -13,11 +13,12 @@ on:
 
 jobs:
   regression:
-    runs-on: ubuntu-latest
+    # See smoke.yml: runs on a self-hosted runner on the machine serving
+    # localhost:5173, since SkyRoute has no deployed instance. This
+    # workflow only triggers on a release tag push or manual dispatch
+    # (never pull_request), so it's safe on a public repo.
+    runs-on: self-hosted
     env:
-      # See smoke.yml: this repo doesn't contain the app's source, so CI
-      # needs BASE_URL pointed at a reachable deployment. Configure it in
-      # Settings > Secrets and variables > Actions > Variables > BASE_URL.
       BASE_URL: ${{ vars.BASE_URL }}
     steps:
       - uses: actions/checkout@v4

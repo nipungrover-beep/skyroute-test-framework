@@ -2,16 +2,17 @@ name: Smoke tests
 
 on:
   push:
-  pull_request:
+    branches: [main]
 
 jobs:
   smoke:
-    runs-on: ubuntu-latest
+    # SkyRoute only runs locally (no deployed instance), so this runs on a
+    # self-hosted runner on the same machine that serves localhost:5173 —
+    # see README > Known gaps. Deliberately NOT triggered by pull_request:
+    # self-hosted runners on a public repo must never run on PRs, since
+    # anyone could open one to execute code on this machine.
+    runs-on: self-hosted
     env:
-      # This repo is a black-box test suite — it doesn't contain the
-      # SkyRoute app's source, so CI can't start it itself. Point BASE_URL
-      # at a reachable deployment (staging, preview environment, etc.) via
-      # Settings > Secrets and variables > Actions > Variables > BASE_URL.
       BASE_URL: ${{ vars.BASE_URL }}
     steps:
       - uses: actions/checkout@v4
